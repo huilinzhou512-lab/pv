@@ -48,14 +48,14 @@ export default function StoragePage() {
             <h3>储能容量转译</h3>
             <p>输入储能容量后，系统根据典型产品能量密度估算设备体积，并考虑维护通道和安全系数得到建筑空间占用。</p>
             <div className="form-grid">
-              <Field label="储能容量 kWh" value={fields.kwh} onChange={(value) => updateField("kwh", value)} />
+              <Field label="储能容量 kWh" value={fields.kwh} min="0" max="500" step="1" onChange={(value) => updateField("kwh", value)} />
               <Field label="产品类型" value={fields.density} onChange={(value) => updateField("density", value)}>
                 <option value="92">磷酸铁锂柜式系统</option>
                 <option value="70">铅酸电池架</option>
                 <option value="120">高集成液冷柜</option>
               </Field>
-              <Field label="设备有效高度 m" value={fields.height} step="0.1" onChange={(value) => updateField("height", value)} />
-              <Field label="维护与安全系数" value={fields.safe} step="0.1" onChange={(value) => updateField("safe", value)} />
+              <Field label="设备有效高度 m" value={fields.height} min="0.1" max="4" step="0.1" onChange={(value) => updateField("height", value)} />
+              <Field label="维护与安全系数" value={fields.safe} min="1" max="5" step="0.1" onChange={(value) => updateField("safe", value)} />
             </div>
             <div className="mini-results">
               <div>
@@ -71,6 +71,7 @@ export default function StoragePage() {
                 <span>空间占用 m²</span>
               </div>
             </div>
+            <div className="note">空间占用按“储能容量 / 产品能量密度 / 有效高度 × 维护与安全系数”估算；高度或密度输入异常时会自动采用安全兜底值。</div>
           </div>
 
           <div className="panel">

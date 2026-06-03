@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Field from "@/components/Field";
 import ResultPanel from "@/components/ResultPanel";
-import { calculateConfig, fmt, fmt1 } from "@/lib/calculations";
+import { DESIGN_CONSTANTS, calculateConfig, fmt, fmt1 } from "@/lib/calculations";
 
 const targets = [
   { id: "balance", label: "均衡推荐" },
@@ -41,14 +41,14 @@ export default function ConfigPage() {
           <div className="panel">
             <h3>基础参数输入</h3>
             <div className="form-grid">
-              <Field label="办公建筑面积 m²" value={fields.officeArea} onChange={(value) => updateField("officeArea", value)} />
-              <Field label="年用电强度 kWh/m²" value={fields.loadIntensity} onChange={(value) => updateField("loadIntensity", value)} />
-              <Field label="屋面有效面积 m²" value={fields.configRoofArea} onChange={(value) => updateField("configRoofArea", value)} />
-              <Field label="屋面可铺设比例 %" value={fields.configRoofRatio} onChange={(value) => updateField("configRoofRatio", value)} />
-              <Field label="立面补充面积 m²" value={fields.facadeArea} onChange={(value) => updateField("facadeArea", value)} />
-              <Field label="立面可用比例 %" value={fields.facadeRatio} onChange={(value) => updateField("facadeRatio", value)} />
-              <Field label="单位面积装机 kWp/m²" value={fields.configPvDensity} step="0.01" onChange={(value) => updateField("configPvDensity", value)} />
-              <Field label="储能候选容量 kWh" value={fields.candidateStorage} onChange={(value) => updateField("candidateStorage", value)} />
+              <Field label="办公建筑面积 m²" value={fields.officeArea} min="0" max="100000" step="1" onChange={(value) => updateField("officeArea", value)} />
+              <Field label="年用电强度 kWh/m²" value={fields.loadIntensity} min="0" max="500" step="1" onChange={(value) => updateField("loadIntensity", value)} />
+              <Field label="屋面有效面积 m²" value={fields.configRoofArea} min="0" max="100000" step="1" onChange={(value) => updateField("configRoofArea", value)} />
+              <Field label="屋面可铺设比例 %" value={fields.configRoofRatio} min="0" max="100" step="1" onChange={(value) => updateField("configRoofRatio", value)} />
+              <Field label="立面补充面积 m²" value={fields.facadeArea} min="0" max="100000" step="1" onChange={(value) => updateField("facadeArea", value)} />
+              <Field label="立面可用比例 %" value={fields.facadeRatio} min="0" max="100" step="1" onChange={(value) => updateField("facadeRatio", value)} />
+              <Field label="单位面积装机 kWp/m²" value={fields.configPvDensity} min="0" max="0.5" step="0.01" onChange={(value) => updateField("configPvDensity", value)} />
+              <Field label="储能候选容量 kWh" value={fields.candidateStorage} min="0" max="500" step="1" onChange={(value) => updateField("candidateStorage", value)} />
             </div>
             <div className="target-row">
               {targets.map((target) => (
@@ -70,7 +70,7 @@ export default function ConfigPage() {
               { label: "估算能源自给率", value: `${result.selfRate.toFixed(1)}%` },
               { label: "估算碳减排率", value: `${result.carbonRate.toFixed(1)}%` },
             ]}
-            note={result.note}
+            note={`${result.note} 自给率与减排率按 ${DESIGN_CONSTANTS.pvAnnualEquivalentHours} 小时等效发电和典型储能支撑系数估算，输入异常时自动按安全边界处理。`}
           />
         </div>
       </div>

@@ -1,5 +1,50 @@
 import Link from "next/link";
 
+const quickLinks = [
+  {
+    href: "/pv",
+    icon: "pv",
+    title: "光伏布置",
+    text: "屋面、立面及光伏幕墙二级分类",
+  },
+  {
+    href: "/storage",
+    icon: "storage",
+    title: "储能布置",
+    text: "由容量估算体积与空间占用形式",
+  },
+  {
+    href: "/self",
+    icon: "energy",
+    title: "自给率",
+    text: "评价光伏与储能对办公负荷的支撑程度",
+  },
+  {
+    href: "/carbon",
+    icon: "carbon",
+    title: "碳排放",
+    text: "从净购电量估算运行碳排放",
+  },
+  {
+    href: "/config",
+    icon: "config",
+    title: "配置推荐",
+    text: "按不同目标输出光储组合建议",
+  },
+  {
+    href: "/formula",
+    icon: "formula",
+    title: "计算公式",
+    text: "查看各模块使用的核心公式",
+  },
+  {
+    href: "/references",
+    icon: "reference",
+    title: "参考文件",
+    text: "政策、官网文件与研究文献索引",
+  },
+];
+
 export default function HomePage() {
   return (
     <section className="home-screen">
@@ -15,21 +60,13 @@ export default function HomePage() {
             储能体积、能源自给率、碳排放和光储配置建议。
           </p>
           <div className="quick-grid">
-            <Link className="quick-card" href="/pv">
-              <span className="ico pv" />
-              <b>光伏布置</b>
-              <span>屋面、阳台、立面及光伏幕墙二级分类</span>
-            </Link>
-            <Link className="quick-card" href="/storage">
-              <span className="ico storage" />
-              <b>储能布置</b>
-              <span>由容量估算体积与空间占用形式</span>
-            </Link>
-            <Link className="quick-card" href="/config">
-              <span className="ico config" />
-              <b>配置推荐</b>
-              <span>按不同目标输出光储组合建议</span>
-            </Link>
+            {quickLinks.map((item) => (
+              <Link className="quick-card" href={item.href} key={item.href}>
+                <span className={`ico ${item.icon}`} />
+                <b>{item.title}</b>
+                <span>{item.text}</span>
+              </Link>
+            ))}
           </div>
         </div>
         <div>

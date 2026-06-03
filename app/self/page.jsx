@@ -33,12 +33,12 @@ export default function SelfPage() {
           <div className="panel">
             <h3>自给率参数</h3>
             <div className="form-grid">
-              <Field label="全年用电量 kWh" value={fields.annualLoad} onChange={(value) => updateField("annualLoad", value)} />
-              <Field label="光伏年发电量 kWh" value={fields.annualPv} onChange={(value) => updateField("annualPv", value)} />
+              <Field label="全年用电量 kWh" value={fields.annualLoad} min="0" max="10000000" step="100" onChange={(value) => updateField("annualLoad", value)} />
+              <Field label="光伏年发电量 kWh" value={fields.annualPv} min="0" max="10000000" step="100" onChange={(value) => updateField("annualPv", value)} />
               <Field label="光伏直接自用率" valueLabel={`${Math.round(result.directRatio * 100)}%`} type="range" min="30" max="90" value={fields.directUse} onChange={(value) => updateField("directUse", value)} />
-              <Field label="储能放电量 kWh" value={fields.storageDischarge} onChange={(value) => updateField("storageDischarge", value)} />
+              <Field label="储能放电量 kWh" value={fields.storageDischarge} min="0" max="10000000" step="100" onChange={(value) => updateField("storageDischarge", value)} />
             </div>
-            <div className="note">能源自给率 =（光伏直接自用量 + 储能放电量）/ 建筑全年用电量 × 100%。</div>
+            <div className="note">能源自给率 =（光伏直接自用量 + 储能放电量）/ 建筑全年用电量 × 100%。全年用电量为 0 或输入为空时，结果自动显示为 0，避免无效比值。</div>
           </div>
 
           <ResultPanel

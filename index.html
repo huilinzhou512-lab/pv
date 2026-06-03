@@ -4,22 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>光伏设计查询</title>
+  <!-- 旧版单页备份：项目主入口为 Next.js 应用，请优先维护 app/ 目录。 -->
   <style>
-    :root {
-      --bg: #0c1728;
-      --bg2: #142a47;
-      --panel: #173657;
-      --panel2: #10233b;
-      --line: rgba(139, 184, 232, .24);
-      --text: #f5f8ff;
-      --muted: #9fb4cd;
-      --soft: #c9d8ea;
-      --gold: #f6a400;
-      --cyan: #27d5c4;
-      --blue: #4b8dff;
-      --green: #31d17b;
+:root {
+      --bg: #f5fbf8;
+      --bg2: #e8f6f2;
+      --panel: rgba(255, 255, 255, .82);
+      --panel2: #edf8f6;
+      --line: rgba(81, 147, 151, .22);
+      --text: #19343d;
+      --muted: #668086;
+      --soft: #45666e;
+      --gold: #75cfa8;
+      --cyan: #2fb8c6;
+      --blue: #74aef6;
+      --green: #83c96f;
       --danger: #ff6b6b;
-      --shadow: 0 18px 54px rgba(0, 0, 0, .28);
+      --shadow: 0 18px 46px rgba(82, 132, 126, .14);
       --radius: 8px;
       --max: 1180px;
     }
@@ -32,9 +33,9 @@
       color: var(--text);
       line-height: 1.7;
       background:
-        radial-gradient(circle at 12% 5%, rgba(75, 141, 255, .17), transparent 30%),
-        radial-gradient(circle at 86% 9%, rgba(39, 213, 196, .13), transparent 28%),
-        linear-gradient(180deg, #0b1525 0%, #17304f 45%, #0c1728 100%);
+        radial-gradient(circle at 12% 5%, rgba(117, 207, 168, .32), transparent 30%),
+        radial-gradient(circle at 86% 9%, rgba(116, 174, 246, .22), transparent 28%),
+        linear-gradient(180deg, #f6fbff 0%, #eef9f4 46%, #f9fcf7 100%);
     }
 
     a { color: inherit; text-decoration: none; }
@@ -46,7 +47,7 @@
       z-index: 50;
       height: 58px;
       border-bottom: 1px solid var(--line);
-      background: rgba(11, 21, 37, .92);
+      background: rgba(255, 255, 255, .86);
       backdrop-filter: blur(14px);
     }
 
@@ -71,10 +72,10 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      border: 1px solid rgba(246, 164, 0, .55);
-      background: rgba(246, 164, 0, .12);
+      border: 1px solid rgba(117, 207, 168, .72);
+      background: rgba(117, 207, 168, .18);
       position: relative;
-      box-shadow: 0 0 24px rgba(246, 164, 0, .16);
+      box-shadow: 0 0 24px rgba(117, 207, 168, .22);
     }
 
     .brand-mark::before {
@@ -90,7 +91,7 @@
       position: absolute;
       inset: 4px;
       border-radius: 50%;
-      border: 2px dashed rgba(246, 164, 0, .58);
+      border: 2px dashed rgba(47, 184, 198, .56);
       animation: spin 18s linear infinite;
     }
 
@@ -110,7 +111,7 @@
       align-items: center;
       gap: 7px;
       padding: 0 11px;
-      color: #c9d8ea;
+      color: #45666e;
       border: 1px solid transparent;
       border-radius: 6px;
       font-size: 14px;
@@ -119,17 +120,17 @@
     }
 
     nav a:hover, nav a.active {
-      color: #fff;
-      border-color: rgba(246, 164, 0, .6);
-      background: rgba(246, 164, 0, .17);
-      box-shadow: 0 10px 26px rgba(246, 164, 0, .12);
+      color: #0e5f62;
+      border-color: rgba(117, 207, 168, .7);
+      background: rgba(117, 207, 168, .18);
+      box-shadow: 0 10px 26px rgba(97, 171, 153, .14);
     }
 
     .ico {
       width: 16px;
       height: 16px;
       display: inline-block;
-      border: 1px solid rgba(246, 164, 0, .62);
+      border: 1px solid rgba(47, 184, 198, .62);
       border-radius: 4px;
       position: relative;
       flex: 0 0 auto;
@@ -143,6 +144,8 @@
     .ico.energy::before { content: ""; position: absolute; left: 6px; top: 2px; width: 4px; height: 12px; background: var(--gold); transform: skewX(-18deg); }
     .ico.carbon::before { content: ""; position: absolute; left: 4px; top: 3px; width: 8px; height: 10px; border-radius: 50% 50% 45% 45%; border: 2px solid var(--gold); border-top: 0; }
     .ico.formula::before { content: "Σ"; position: absolute; inset: 0; display: grid; place-items: center; color: var(--gold); font-size: 11px; font-weight: 900; }
+    .ico.reference::before { content: ""; position: absolute; left: 4px; top: 3px; width: 8px; height: 10px; border: 2px solid var(--gold); border-radius: 2px; }
+    .ico.reference::after { content: ""; position: absolute; left: 6px; top: 7px; width: 5px; height: 1px; background: var(--gold); box-shadow: 0 3px 0 var(--gold); }
 
     .menu {
       display: none;
@@ -150,10 +153,10 @@
       height: 36px;
       border: 1px solid var(--line);
       border-radius: 6px;
-      background: rgba(23, 54, 87, .92);
+      background: rgba(255, 255, 255, .92);
       cursor: pointer;
     }
-    .menu i { display: block; width: 18px; height: 2px; margin: 4px auto; background: #fff; }
+    .menu i { display: block; width: 18px; height: 2px; margin: 4px auto; background: var(--text); }
 
     main { padding-top: 58px; }
     section { scroll-margin-top: 82px; }
@@ -162,7 +165,19 @@
     .home-screen.page.active-page { display: flex; }
     .container { width: min(var(--max), calc(100% - 36px)); margin: auto; }
 
+    .legacy-backup {
+      margin-top: 58px;
+      padding: 8px 18px;
+      text-align: center;
+      color: #45666e;
+      background: rgba(255, 255, 255, .92);
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
     .home-screen {
+      display: flex;
       min-height: calc(100vh - 58px);
       align-items: center;
       border-bottom: 1px solid var(--line);
@@ -175,8 +190,8 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+        linear-gradient(rgba(47,184,198,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(117,207,168,.08) 1px, transparent 1px);
       background-size: 48px 48px;
       mask-image: linear-gradient(180deg, #000, transparent 88%);
       pointer-events: none;
@@ -196,10 +211,10 @@
       align-items: center;
       gap: 8px;
       padding: 7px 12px;
-      border: 1px solid rgba(246, 164, 0, .5);
+      border: 1px solid rgba(117, 207, 168, .62);
       border-radius: 999px;
-      color: #ffd166;
-      background: rgba(246, 164, 0, .08);
+      color: #247e70;
+      background: rgba(117, 207, 168, .16);
       font-size: 13px;
       font-weight: 900;
     }
@@ -209,7 +224,7 @@
       height: 8px;
       border-radius: 50%;
       background: var(--gold);
-      box-shadow: 0 0 0 6px rgba(246, 164, 0, .14);
+      box-shadow: 0 0 0 6px rgba(117, 207, 168, .18);
     }
 
     h1 {
@@ -236,7 +251,7 @@
     .quick-card, .card, .panel, .result {
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(23, 54, 87, .74);
+      background: var(--panel);
       box-shadow: var(--shadow);
       transition: .24s ease;
     }
@@ -251,7 +266,7 @@
 
     .quick-card:hover, .card:hover, .panel:hover {
       transform: translateY(-4px);
-      border-color: rgba(246, 164, 0, .55);
+      border-color: rgba(117, 207, 168, .65);
     }
 
     .quick-card b { font-size: 18px; }
@@ -263,34 +278,141 @@
       position: relative;
       overflow: hidden;
       background:
-        linear-gradient(135deg, rgba(75,141,255,.12), rgba(39,213,196,.08)),
-        rgba(23, 54, 87, .78);
+        linear-gradient(135deg, rgba(116,174,246,.18), rgba(117,207,168,.2)),
+        rgba(255, 255, 255, .78);
     }
 
     .figure-frame {
       margin: 0;
-      overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: #fff;
+      overflow: hidden;
+      background: rgba(240, 250, 248, .72);
     }
 
     .figure-frame img {
-      display: block;
       width: 100%;
       height: 100%;
+      display: block;
       object-fit: contain;
-      background: #fff;
     }
 
     .visual-figure {
-      position: absolute;
-      inset: 18px;
+      width: 100%;
+      min-height: 350px;
+      height: 100%;
+      background: rgba(240, 250, 248, .54);
+    }
+
+    .pv-figure, .diagram-card {
+      min-height: 250px;
+    }
+
+    .diagram-card {
+      position: relative;
       display: grid;
       place-items: center;
     }
 
-    .visual-figure img { object-fit: cover; }
+    .figure-caption {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, .88);
+      color: var(--muted);
+    }
+
+    .figure-caption strong {
+      display: block;
+      color: var(--soft);
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .storage-figure {
+      height: 104px;
+      margin-bottom: 12px;
+    }
+
+    .carbon-figure {
+      min-height: 230px;
+      margin-top: 16px;
+    }
+
+    .building {
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      width: 74%;
+      max-width: 460px;
+      height: 224px;
+      border: 1px solid rgba(81, 147, 151, .26);
+      border-radius: 6px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.45) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.45) 1px, transparent 1px),
+        linear-gradient(180deg, #cfe8ed, #e8f6f2);
+      background-size: 38px 38px, 38px 38px, auto;
+    }
+
+    .roof {
+      position: absolute;
+      left: 50%;
+      top: -54px;
+      transform: translateX(-50%);
+      width: 90%;
+      height: 66px;
+      clip-path: polygon(8% 100%, 22% 0, 78% 0, 92% 100%);
+      background: linear-gradient(135deg, #b9dde9, #d9f0ec);
+      border: 1px solid rgba(81, 147, 151, .32);
+    }
+
+    .pv-strip {
+      position: absolute;
+      top: 18px;
+      left: 29%;
+      width: 42%;
+      height: 22px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 3px;
+      transform: skewX(-18deg);
+    }
+
+    .pv-strip i, .pv-array i {
+      border-radius: 2px;
+      background: linear-gradient(135deg, #61a7f5, #9be5dc);
+      border: 1px solid rgba(255,255,255,.7);
+    }
+
+    .battery-box {
+      position: absolute;
+      right: 34px;
+      bottom: 28px;
+      width: 96px;
+      height: 82px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(47, 184, 198, .42);
+      border-radius: 6px;
+      background: rgba(47, 184, 198, .12);
+      color: var(--cyan);
+      font-weight: 900;
+    }
+
+    .light-line {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      animation: pulse 2.8s linear infinite;
+    }
+    .l1 { width: 190px; left: 15%; top: 25%; transform: rotate(22deg); }
+    .l2 { width: 170px; right: 14%; top: 68%; transform: rotate(-18deg); background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
 
     .mini-results {
       display: grid;
@@ -303,7 +425,7 @@
       text-align: center;
       border: 1px solid var(--line);
       border-radius: 6px;
-      background: rgba(16, 35, 59, .84);
+      background: rgba(255, 255, 255, .78);
     }
     .mini-results b { display: block; color: var(--cyan); font-size: 22px; line-height: 1.2; }
     .mini-results span { color: var(--muted); font-size: 13px; }
@@ -333,35 +455,50 @@
       border: 1px solid var(--line);
       border-radius: 6px;
       color: var(--soft);
-      background: rgba(23, 54, 87, .86);
+      background: rgba(255, 255, 255, .72);
       cursor: pointer;
       font-weight: 900;
       transition: .2s ease;
     }
     .tab-btn:hover, .tab-btn.active {
-      color: #12223a;
-      border-color: #ffd166;
+      color: #0e5f62;
+      border-color: rgba(117, 207, 168, .8);
       background: var(--gold);
     }
     .tab-content { display: none; }
     .tab-content.active { display: block; animation: fade .28s ease both; }
 
     .pv-layout { display: grid; grid-template-columns: 1fr .82fr; gap: 16px; min-height: 250px; }
-    .pv-figure { min-height: 230px; }
+    .roof-plane {
+      display: grid;
+      place-items: center;
+      min-height: 230px;
+      border-radius: 6px;
+      background: #f4fbf9;
+    }
+    .pv-array {
+      width: 82%;
+      aspect-ratio: 2.8/1;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 4px;
+      transform: perspective(460px) rotateX(18deg);
+    }
     .side-list { display: grid; gap: 10px; }
     .side-list div, .note {
       padding: 12px;
       border: 1px solid var(--line);
       border-radius: 6px;
-      background: rgba(16, 35, 59, .78);
+      background: rgba(255, 255, 255, .74);
       color: var(--soft);
     }
     .side-list b { display: block; color: var(--gold); }
 
     .note {
       margin-top: 16px;
-      border-color: rgba(246, 164, 0, .36);
-      background: rgba(246, 164, 0, .08);
+      border-color: rgba(117, 207, 168, .46);
+      background: rgba(117, 207, 168, .12);
     }
 
     .sub-choice {
@@ -375,52 +512,25 @@
       border: 1px solid var(--line);
       border-radius: 6px;
       color: var(--soft);
-      background: rgba(16, 35, 59, .88);
+      background: rgba(255, 255, 255, .84);
       cursor: pointer;
       font-weight: 800;
     }
-    .sub-choice button.active { color: #12223a; background: var(--gold); border-color: #ffd166; }
+    .sub-choice button.active { color: #0e5f62; background: var(--gold); border-color: rgba(117, 207, 168, .82); }
 
-    .placeholder, .diagram-card {
+    .placeholder {
       min-height: 230px;
       display: grid;
       place-items: center;
       text-align: center;
-      border: 1px dashed rgba(159, 181, 206, .45);
+      border: 1px dashed rgba(81, 147, 151, .35);
       border-radius: 8px;
       color: var(--muted);
       background:
-        linear-gradient(135deg, rgba(75,141,255,.08), rgba(246,164,0,.05)),
-        rgba(16, 35, 59, .58);
+        linear-gradient(135deg, rgba(116,174,246,.12), rgba(117,207,168,.12)),
+        rgba(255, 255, 255, .72);
     }
     .placeholder strong { display: block; color: var(--soft); font-size: 18px; margin-bottom: 5px; }
-
-    .diagram-card {
-      display: block;
-      padding: 0;
-      border-style: solid;
-      text-align: left;
-    }
-
-    .diagram-card img {
-      aspect-ratio: 16 / 9;
-      border-bottom: 1px solid rgba(159, 181, 206, .28);
-    }
-
-    .figure-caption {
-      padding: 12px 14px 14px;
-      color: var(--muted);
-      background: rgba(16, 35, 59, .92);
-    }
-
-    .figure-caption strong {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--soft);
-      font-size: 18px;
-    }
-
-    .figure-caption span { font-size: 14px; }
 
     .form-grid {
       display: grid;
@@ -428,6 +538,7 @@
       gap: 14px;
       margin-top: 16px;
     }
+
     .field label {
       display: flex;
       justify-content: space-between;
@@ -442,53 +553,58 @@
       height: 42px;
       border: 1px solid var(--line);
       border-radius: 6px;
-      color: #fff;
-      background: rgba(16, 35, 59, .92);
+      color: var(--text);
+      background: rgba(255, 255, 255, .92);
       padding: 0 12px;
       outline: none;
     }
-    .field input:focus, .field select:focus { border-color: rgba(246, 164, 0, .75); }
+    .field input:focus, .field select:focus { border-color: rgba(117, 207, 168, .85); }
     input[type="range"] { accent-color: var(--gold); padding: 0; }
 
     .storage-forms {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr;
       gap: 12px;
       margin-top: 16px;
     }
     .storage-card {
-      min-height: 230px;
+      min-height: 136px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      padding: 12px;
-      background: rgba(16, 35, 59, .72);
+      padding: 16px;
+      background: rgba(255, 255, 255, .76);
       position: relative;
       overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(130px, .75fr) 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 8px 16px;
+      align-items: center;
     }
-    .storage-card.active { border-color: rgba(39, 213, 196, .75); background: rgba(39, 213, 196, .09); }
-    .storage-figure { height: 96px; margin-bottom: 12px; }
+    .storage-card.active { border-color: rgba(47, 184, 198, .72); background: rgba(47, 184, 198, .1); }
+    .storage-card .storage-figure {
+      grid-row: 1 / span 2;
+      width: 100%;
+      height: 110px;
+      margin-bottom: 0;
+    }
     .storage-card h4 { margin: 0 0 8px; font-size: 19px; }
     .storage-card p { margin: 0; max-width: none; }
-
-    .carbon-figure {
-      margin-top: 16px;
-      min-height: 190px;
-    }
 
     .calc-grid { display: grid; grid-template-columns: 1fr .8fr; gap: 18px; align-items: start; }
     .result {
       position: sticky;
       top: 78px;
-      border-color: rgba(39, 213, 196, .34);
-      background: rgba(18, 67, 78, .58);
+      border-color: rgba(47, 184, 198, .34);
+      background: rgba(232, 249, 247, .74);
     }
     .big {
       margin: 14px 0;
       padding: 18px;
       text-align: center;
       border-radius: 6px;
-      background: rgba(16, 35, 59, .86);
-      border: 1px solid rgba(39, 213, 196, .24);
+      background: rgba(255, 255, 255, .84);
+      border: 1px solid rgba(47, 184, 198, .24);
     }
     .big b { display: block; color: var(--cyan); font-size: 40px; line-height: 1.16; }
     .result-list { display: grid; gap: 9px; }
@@ -501,7 +617,7 @@
       color: var(--soft);
     }
     .result-list div:last-child { border-bottom: 0; }
-    .result-list b { color: #fff; text-align: right; }
+    .result-list b { color: var(--text); text-align: right; }
 
     .target-row {
       display: grid;
@@ -514,13 +630,13 @@
       border: 1px solid var(--line);
       border-radius: 8px;
       color: var(--soft);
-      background: rgba(16, 35, 59, .82);
+      background: rgba(255, 255, 255, .82);
       cursor: pointer;
       font-weight: 900;
     }
     .target.active {
-      color: #12223a;
-      border-color: #ffd166;
+      color: #0e5f62;
+      border-color: rgba(117, 207, 168, .82);
       background: var(--gold);
     }
 
@@ -528,7 +644,7 @@
     .formula-item {
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: rgba(23, 54, 87, .72);
+      background: rgba(255, 255, 255, .76);
       overflow: hidden;
     }
     .formula-head {
@@ -539,7 +655,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #fff;
+      color: var(--text);
       background: transparent;
       cursor: pointer;
       font-weight: 900;
@@ -551,9 +667,32 @@
       padding: 14px;
       border: 1px solid var(--line);
       border-radius: 6px;
-      background: rgba(16, 35, 59, .86);
+      background: rgba(255, 255, 255, .84);
       color: var(--soft);
     }
+    .file-list { display: grid; gap: 8px; }
+    .file-row {
+      min-height: 64px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, .78);
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr) minmax(180px, auto);
+      gap: 12px;
+      align-items: center;
+    }
+    .file-icon {
+      width: 28px;
+      height: 34px;
+      border: 1px solid rgba(47, 184, 198, .56);
+      border-radius: 5px;
+      background: rgba(117, 207, 168, .16);
+    }
+    .file-main { display: grid; gap: 3px; min-width: 0; }
+    .file-main b { color: var(--text); font-size: 17px; line-height: 1.35; }
+    .file-main span { color: var(--muted); font-size: 13px; }
+    .file-source { color: var(--cyan); font-size: 13px; font-weight: 900; text-align: right; }
     code {
       display: block;
       color: var(--gold);
@@ -568,7 +707,7 @@
       color: var(--muted);
       text-align: center;
       border-top: 1px solid var(--line);
-      background: rgba(11, 21, 37, .62);
+      background: rgba(255, 255, 255, .62);
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -588,12 +727,12 @@
         padding: 12px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: rgba(11, 21, 37, .97);
+        background: rgba(255, 255, 255, .97);
       }
       nav.open { display: flex; }
       .menu { display: block; }
       .hero-grid, .section-head, .grid-2, .calc-grid, .pv-layout { grid-template-columns: 1fr; }
-      .quick-grid, .grid-3, .storage-forms, .target-row { grid-template-columns: repeat(2, 1fr); }
+      .quick-grid, .grid-3, .target-row { grid-template-columns: repeat(2, 1fr); }
       .result { position: static; }
     }
 
@@ -603,11 +742,20 @@
       .brand span span { display: none; }
       .home-screen { min-height: auto; }
       .quick-grid, .grid-3, .form-grid, .mini-results, .storage-forms, .target-row { grid-template-columns: 1fr; }
+      .file-row { grid-template-columns: 30px 1fr; }
+      .file-source { grid-column: 2; text-align: left; }
+      .storage-card { grid-template-columns: 1fr; }
+      .storage-card .storage-figure {
+        grid-row: auto;
+        height: 140px;
+      }
       .band { padding: 56px 0; }
     }
+
   </style>
 </head>
 <body>
+  <div class="legacy-backup">旧版单页备份，不作为主入口；请优先使用和维护 Next.js 应用。</div>
   <header class="topbar">
     <div class="nav-wrap">
       <a class="brand" href="#/home">
@@ -618,10 +766,11 @@
         <a class="active" href="#/home" data-route="home"><span class="ico home"></span>首页</a>
         <a href="#/pv" data-route="pv"><span class="ico pv"></span>光伏布置</a>
         <a href="#/storage" data-route="storage"><span class="ico storage"></span>储能布置</a>
-        <a href="#/config" data-route="config"><span class="ico config"></span>配置推荐</a>
         <a href="#/self" data-route="self"><span class="ico energy"></span>自给率</a>
         <a href="#/carbon" data-route="carbon"><span class="ico carbon"></span>碳排放</a>
+        <a href="#/config" data-route="config"><span class="ico config"></span>配置推荐</a>
         <a href="#/formula" data-route="formula"><span class="ico formula"></span>计算公式</a>
+        <a href="#/references" data-route="references"><span class="ico reference"></span>参考文件</a>
       </nav>
       <button class="menu" id="menu" aria-label="展开导航"><i></i><i></i><i></i></button>
     </div>
@@ -662,7 +811,7 @@
       <div class="container">
         <div class="section-head">
           <div><div class="tag">01 光伏布置设计</div><h2>把建筑界面转化为光伏可用面积</h2></div>
-          <p>根据建筑屋面、阳台与立面条件，估算可铺设面积与装机容量。光伏幕墙归入立面系统，作为立面二级分类进行表达。</p>
+          <p>根据建筑屋面与立面条件，估算可铺设面积与装机容量。阳台光伏与光伏幕墙归入立面系统，作为立面二级分类进行表达。</p>
         </div>
         <div class="grid-2">
           <div class="panel">
@@ -670,7 +819,6 @@
             <p>不同界面对发电效率、建筑形象、维护便利性和空间占用产生不同影响。</p>
             <div class="tabs" data-tabs>
               <button class="tab-btn active" data-tab="roofTab">屋面</button>
-              <button class="tab-btn" data-tab="balconyTab">阳台</button>
               <button class="tab-btn" data-tab="facadeTab">立面</button>
             </div>
 
@@ -687,13 +835,6 @@
               </div>
             </div>
 
-            <div class="tab-content" id="balconyTab">
-              <figure class="figure-frame diagram-card">
-                <img src="assets/illustrations/pv-balcony.png" alt="阳台光伏布置轴测示意图">
-                <figcaption class="figure-caption"><strong>阳台光伏布置示意</strong><span>适合遮阳板、栏板与局部构件一体化，需兼顾采光、眺望与立面秩序。</span></figcaption>
-              </figure>
-            </div>
-
             <div class="tab-content" id="facadeTab">
               <figure class="figure-frame diagram-card" id="facadePlaceholder">
                 <img id="facadeImage" src="assets/illustrations/pv-facade.png" alt="普通立面光伏轴测示意图">
@@ -701,6 +842,7 @@
               </figure>
               <div class="sub-choice">
                 <button class="active" data-facade data-facade-title="普通立面光伏示意" data-facade-desc="适合作为补充发电界面，需判断朝向、遮挡、构造固定和建筑表达。" data-facade-image="assets/illustrations/pv-facade.png" data-facade-alt="普通立面光伏轴测示意图">普通立面</button>
+                <button data-facade data-facade-title="阳台光伏布置示意" data-facade-desc="作为立面二级分类，适合遮阳板、栏板与局部构件一体化，需兼顾采光、眺望与立面秩序。" data-facade-image="assets/illustrations/pv-balcony.png" data-facade-alt="阳台光伏布置轴测示意图">阳台光伏</button>
                 <button data-facade data-facade-title="光伏幕墙系统示意" data-facade-desc="作为立面二级分类，后续需细化幕墙构造、透光率、热工性能与增量成本。" data-facade-image="assets/illustrations/pv-curtain-wall.png" data-facade-alt="光伏幕墙系统轴测示意图">光伏幕墙</button>
               </div>
             </div>
@@ -879,6 +1021,25 @@
           <div class="formula-item"><button class="formula-head">储能体积与空间占用 <span>展开</span></button><div class="formula-body"><div class="formula-box"><code>V_bat = C_bat / D_energy</code><code>A_space = V_bat / H_eff × K_safe</code>C_bat 为储能容量，D_energy 为设备能量密度，H_eff 为设备有效高度，K_safe 为维护与安全系数。</div></div></div>
           <div class="formula-item"><button class="formula-head">能源自给率 <span>展开</span></button><div class="formula-body"><div class="formula-box"><code>Self-sufficiency = (E_direct + E_storage) / E_load × 100%</code>E_direct 为光伏直接自用电量，E_storage 为储能放电量，E_load 为建筑全年用电量。</div></div></div>
           <div class="formula-item"><button class="formula-head">碳排放测算 <span>展开</span></button><div class="formula-body"><div class="formula-box"><code>C_net = (E_in - E_out) × EF_grid</code>E_in 为从电网购电量，E_out 为余电上网量，EF_grid 为区域电网平均碳排放因子。</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band page" id="references" data-page="references">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="tag">07 参考文件</div><h2>政策、官网文件与研究文献索引</h2></div>
+          <p>先放入光伏布置、储能配置、自给率与碳排放测算常用的参考入口；后续可继续补充上传的政策文件、规范 PDF 和论文资料。</p>
+        </div>
+        <div class="panel">
+          <div class="file-list">
+            <a class="file-row" href="https://www.gov.cn/gongbao/2025/issue_11946/202503/content_7015853.html" target="_blank" rel="noreferrer"><span class="file-icon"></span><span class="file-main"><b>分布式光伏发电开发建设管理办法</b><span>国家能源局《分布式光伏发电开发建设管理办法》。</span></span><span class="file-source">国家能源局 / 中国政府网，2025</span></a>
+            <a class="file-row" href="https://www.mohurd.gov.cn/gongkai/zc/wjk/art/2021/art_17339_762460.html" target="_blank" rel="noreferrer"><span class="file-icon"></span><span class="file-main"><b>建筑节能与可再生能源利用通用规范 GB 55015-2021</b><span>住建部《建筑节能与可再生能源利用通用规范》。</span></span><span class="file-source">住房和城乡建设部，2021</span></a>
+            <a class="file-row" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202203/t20220321_1319772.html" target="_blank" rel="noreferrer"><span class="file-icon"></span><span class="file-main"><b>“十四五”新型储能发展实施方案</b><span>国家发展改革委、国家能源局“十四五”新型储能发展实施方案。</span></span><span class="file-source">国家发展改革委 / 国家能源局，2022</span></a>
+            <a class="file-row" href="https://www.mee.gov.cn/xxgk2018/xxgk/xxgk01/202510/t20251024_1130734.html" target="_blank" rel="noreferrer"><span class="file-icon"></span><span class="file-main"><b>2024 年电力碳足迹因子数据公告</b><span>生态环境部等发布的 2024 年电力碳足迹因子数据。</span></span><span class="file-source">生态环境部等，2025</span></a>
+            <a class="file-row" href="https://www.sciencedirect.com/science/article/pii/S0378778816305667" target="_blank" rel="noreferrer"><span class="file-icon"></span><span class="file-main"><b>A comprehensive review on design of building integrated photovoltaic system</b><span>建筑光伏一体化系统设计研究综述。</span></span><span class="file-source">Energy and Buildings，2017</span></a>
+            <div class="file-row"><span class="file-icon"></span><span class="file-main"><b>待上传文件</b><span>后续上传的政策 PDF、官网附件和论文原文可继续归档到这里。</span></span><span class="file-source">本地文件</span></div>
+          </div>
         </div>
       </div>
     </section>

@@ -8,10 +8,11 @@ const items = [
   { href: "/", route: "home", icon: "home", label: "首页" },
   { href: "/pv", route: "pv", icon: "pv", label: "光伏布置" },
   { href: "/storage", route: "storage", icon: "storage", label: "储能布置" },
-  { href: "/config", route: "config", icon: "config", label: "配置推荐" },
   { href: "/self", route: "self", icon: "energy", label: "自给率" },
   { href: "/carbon", route: "carbon", icon: "carbon", label: "碳排放" },
+  { href: "/config", route: "config", icon: "config", label: "配置推荐" },
   { href: "/formula", route: "formula", icon: "formula", label: "计算公式" },
+  { href: "/references", route: "references", icon: "reference", label: "参考文件" },
 ];
 
 export default function Nav() {
